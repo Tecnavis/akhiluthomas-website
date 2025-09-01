@@ -516,45 +516,43 @@
 		
 	
 		
-		<section class="content-wrapper style-12 bg-secondary background-blend-burn" style="background-image: url(images/background/bg1.webp);">
+<section class="content-wrapper style-12 bg-secondary background-blend-burn" style="background-image: url(images/background/bg1.webp);">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="content-info">
 					<div class="section-head style-3 m-b40">
-						<h2 class="title text-white m-b0 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Make An <span class="text-yellow">Appointment</span></h2>
+						<h2 class="title text-white m-b0 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
+							Make An <span class="text-yellow">Appointment</span>
+						</h2>
 					</div>
 					<div class="form-wrapper">
 						<div class="form-body">
-							<form action="../assets/script/contact_smtp.php" class="dzForm" method="POST">
-								<input type="hidden" class="form-control" name="dzToDo" value="Appointment">
-								<input type="hidden" class="form-control" name="reCaptchaEnable" value="0">
-								<div class="dzFormMsg"></div>
+							<form id="whatsappForm">
 								<div class="row g-3">
 									<div class="col-xl-3 col-sm-6 m-b10 wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.8s">
 										<div class="form-floating floating-outline input-light">
-											<input name="dzName" type="text" class="form-control" id="inputYourName" placeholder="Your Name">
+											<input name="dzName" type="text" class="form-control" id="inputYourName" placeholder="Your Name" required>
 											<label for="inputYourName">Your Name</label>
 											<span class="input-group-text"><i class="feather icon-user"></i></span>
 										</div>
 									</div>
 									<div class="col-xl-3 col-sm-6 m-b10 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
 										<div class="form-floating floating-outline input-light">
-											<input name="dzPhoneNumber" type="number" class="form-control" id="inputYourPhoneNumber" placeholder="Your Phone Number">
-											<label for="inputYourPhoneNumber">Your phone Nmber</label>
+											<input name="dzPhoneNumber" type="number" class="form-control" id="inputYourPhoneNumber" placeholder="Your Phone Number" required>
+											<label for="inputYourPhoneNumber">Your Phone Number</label>
 											<span class="input-group-text"><i class="feather icon-phone"></i></span>
 										</div>
 									</div>
 									<div class="col-xl-3 col-sm-6 m-b10 wow fadeInUp" data-wow-delay="0.5s" data-wow-duration="0.8s">
 										<div class="form-floating floating-outline input-light">
-											<input name="dzOther[DateTime]" type="text" class="form-control" id="dateTimePickerOnly" placeholder="Phone Number">
+											<input name="dzOther[DateTime]" type="text" class="form-control" id="dateTimePickerOnly" placeholder="Date & Time" required>
 											<label for="dateTimePickerOnly">Date Time</label>
 											<span class="input-group-text"><i class="feather icon-calendar"></i></span>
 										</div>
 									</div>
-																
 									<div class="col-xl-3 col-sm-6 m-b10 wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="0.8s">
-										<button type="submit" name="submit" value="submit" class="btn btn-lg btn-icon btn-white shadow-sm w-100">
+										<button type="submit" class="btn btn-lg btn-icon btn-white shadow-sm w-100">
 											<span class="w-100">Appointment</span>
 											<span class="right-icon bg-primary"><i class="feather icon-arrow-right"></i></span>
 										</button>
@@ -565,7 +563,6 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
 	</div>
 </section>
@@ -788,54 +785,51 @@
 				</div>
 			</div>
 			<div class="col-xl-5 col-lg-6 m-b30 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
-				<div class="form-wrapper style-1 m-l40">
-					<div class="form-body bg-secondary background-blend-burn" style="background-image: url(images/background/bg2.png); background-size: cover;  background-position: bottom right;">
-						<div class="section-head style-1 m-b30">
-							<h2 class="title text-white">Get in Touch <br> With us</h2>
-						</div>
-						<form action="../assets/script/contact_smtp.php" class="dzForm row" method="POST">
-							<input type="hidden" class="form-control" name="dzToDo" value="Contact">
-							<input type="hidden" class="form-control" name="reCaptchaEnable" value="0">
-							<div class="dzFormMsg"></div>
-							<div class="col-sm-6 m-b30">
-								<div class="form-floating floating-underline input-light">
-									<input name="dzFirstName" type="text" class="form-control" id="inputYourName2" placeholder="First Name">
-									<label for="inputYourName2">First Name</label>
-								</div>
-							</div>
-							<div class="col-sm-6 m-b30">
-								<div class="form-floating floating-underline input-light">
-									<input name="dzLastName" type="text" class="form-control" id="inputLastName2" placeholder="Last Name">
-									<label for="inputLastName2">Last Name</label>
-								</div>
-							</div>
-							<div class="col-sm-6 m-b30">
-								<div class="form-floating floating-underline input-light">
-									<input name="dzPhoneNumber" type="text" class="form-control dz-number" id="inputPhoneNumber2" placeholder="Phone Number">
-									<label for="inputPhoneNumber2">Phone Number</label>
-								</div>
-							</div>
-							<div class="col-sm-6 m-b30">
-								<div class="form-floating floating-underline input-light">
-									<input name="dzEmail" type="email" class="form-control" id="inputYourEmail2" placeholder="Phone Number">
-									<label for="inputYourEmail2">Your Email</label>
-								</div>
-							</div>
-							<div class="col-sm-12 m-b30">
-								<div class="form-floating floating-underline input-light">
-									<textarea name="dzMessage" class="form-control" id="inputMessage" rows="6" placeholder="Select Service"></textarea>
-									<label for="inputMessage">Message</label>
-								</div>
-							</div>
-							<div class="col-sm-12">
-								<button type="submit" name="submit" value="submit" class="btn btn-lg btn-icon btn-white btn-shadow">
-									Appointment <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
-								</button>
-							</div>
-						</form>
+	<div class="form-wrapper style-1 m-l40">
+		<div class="form-body bg-secondary background-blend-burn" style="background-image: url(images/background/bg2.png); background-size: cover;  background-position: bottom right;">
+			<div class="section-head style-1 m-b30">
+				<h2 class="title text-white">Get in Touch <br> With us</h2>
+			</div>
+			<form id="whatsappContactForm" class="row">
+				<div class="col-sm-6 m-b30">
+					<div class="form-floating floating-underline input-light">
+						<input name="dzFirstName" type="text" class="form-control" id="inputYourName2" placeholder="First Name" required>
+						<label for="inputYourName2">First Name</label>
 					</div>
 				</div>
-			</div>
+				<div class="col-sm-6 m-b30">
+					<div class="form-floating floating-underline input-light">
+						<input name="dzLastName" type="text" class="form-control" id="inputLastName2" placeholder="Last Name" required>
+						<label for="inputLastName2">Last Name</label>
+					</div>
+				</div>
+				<div class="col-sm-6 m-b30">
+					<div class="form-floating floating-underline input-light">
+						<input name="dzPhoneNumber" type="text" class="form-control dz-number" id="inputPhoneNumber2" placeholder="Phone Number" required>
+						<label for="inputPhoneNumber2">Phone Number</label>
+					</div>
+				</div>
+				<div class="col-sm-6 m-b30">
+					<div class="form-floating floating-underline input-light">
+						<input name="dzEmail" type="email" class="form-control" id="inputYourEmail2" placeholder="Your Email" required>
+						<label for="inputYourEmail2">Your Email</label>
+					</div>
+				</div>
+				<div class="col-sm-12 m-b30">
+					<div class="form-floating floating-underline input-light">
+						<textarea name="dzMessage" class="form-control" id="inputMessage" rows="6" placeholder="Message" required></textarea>
+						<label for="inputMessage">Message</label>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-lg btn-icon btn-white btn-shadow">
+						Appointment <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 		</div>
 	</div>
 </section>
@@ -1024,5 +1018,45 @@
 <script src="../assets/js/dz.carousel.js"></script>
 <script src="../assets/js/dz.ajax.js"></script>
 <script src="../assets/js/custom.js"></script>
+
+
+<script>
+document.getElementById("whatsappForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let name = document.getElementById("inputYourName").value;
+    let phone = document.getElementById("inputYourPhoneNumber").value;
+    let datetime = document.getElementById("dateTimePickerOnly").value;
+
+    let message = `Hello, I would like to book an appointment.%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Date & Time: ${datetime}`;
+
+    let whatsappURL = `https://wa.me/919142000788?text=${message}`;
+    window.open(whatsappURL, "_blank");
+});
+</script>
+<script>
+document.getElementById("whatsappContactForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let firstName = document.getElementById("inputYourName2").value;
+    let lastName = document.getElementById("inputLastName2").value;
+    let phone = document.getElementById("inputPhoneNumber2").value;
+    let email = document.getElementById("inputYourEmail2").value;
+    let messageText = document.getElementById("inputMessage").value;
+
+    let message = `Hello, I want to get in touch.%0A
+First Name: ${firstName}%0A
+Last Name: ${lastName}%0A
+Phone: ${phone}%0A
+Email: ${email}%0A
+Message: ${messageText}`;
+
+    let whatsappURL = `https://wa.me/919142000788?text=${message}`;
+    window.open(whatsappURL, "_blank");
+});
+</script>
 </body>
 </html>

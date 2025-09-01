@@ -36171,3 +36171,12 @@ footer {
   transition: none; }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+/* Hide div on screens smaller than 768px (common mobile breakpoint) */
+@media only screen and (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
