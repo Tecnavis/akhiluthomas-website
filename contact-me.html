@@ -229,54 +229,52 @@
 								+91 91420 00788
 							</a>
 						</div>
-						<div class="form-wrapper style-1 m-l40 wow fadeInUp" data-wow-delay="1.0s" data-wow-duration="0.8s">
-							<div class="form-body bg-white">
-								<div class="section-head style-1 m-b30">
-									<h2 class="title">Ask a Question</h2>
-									<p>If you have any questions, you can contact us. Please, fill out the form below.</p>
-								</div>
-								<form action="../assets/script/contact_smtp.php" class="dzForm row" method="POST">
-									<input type="hidden" class="form-control" name="dzToDo" value="Contact">
-									<input type="hidden" class="form-control" name="reCaptchaEnable" value="0">
-									<div class="dzFormMsg"></div>	
-									<div class="col-sm-6 m-b30">
-										<div class="form-floating floating-underline">
-											<input name="dzFirstName" type="text" class="form-control" id="inputYourName2" placeholder="First Name">
-											<label for="inputYourName2">First Name</label>
-										</div>
-									</div>
-									<div class="col-sm-6 m-b30">
-										<div class="form-floating floating-underline">
-											<input name="dzLastName" type="text" class="form-control" id="inputLastName2" placeholder="Last Name">
-											<label for="inputLastName2">Last Name</label>
-										</div>
-									</div>
-									<div class="col-sm-6 m-b30">
-										<div class="form-floating floating-underline">
-											<input name="dzPhoneNumber" type="text" class="form-control dz-number" id="inputPhoneNumber2" placeholder="Phone Number">
-											<label for="inputPhoneNumber2">Phone Number</label>
-										</div>
-									</div>
-									<div class="col-sm-6 m-b30">
-										<div class="form-floating floating-underline">
-											<input name="dzEmail" type="email" class="form-control" id="inputYourEmail2" placeholder="Phone Number">
-											<label for="inputYourEmail2">Your Email</label>
-										</div>
-									</div>
-									<div class="col-sm-12 m-b30">
-										<div class="form-floating floating-underline">
-											<textarea name="dzMessage" class="form-control" id="inputMessage" rows="6" placeholder="Select Service"></textarea>
-											<label for="inputMessage">Message</label>
-										</div>
-									</div>
-									<div class="col-sm-12">
-										<button type="submit" name="submit" value="submit" class="btn btn-lg btn-icon btn-primary btn-shadow">
-											Submit Now <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
-										</button>
-									</div>
-								</form>
-							</div>
-						</div>
+				<div class="form-wrapper style-1 m-l40 wow fadeInUp" data-wow-delay="1.0s" data-wow-duration="0.8s">
+	<div class="form-body bg-white">
+		<div class="section-head style-1 m-b30">
+			<h2 class="title">Ask a Question</h2>
+			<p>If you have any questions, you can contact us. Please, fill out the form below.</p>
+		</div>
+		<form id="whatsappQuestionForm" class="row">
+			<div class="col-sm-6 m-b30">
+				<div class="form-floating floating-underline">
+					<input name="dzFirstName" type="text" class="form-control" id="questionFirstName" placeholder="First Name" required>
+					<label for="questionFirstName">First Name</label>
+				</div>
+			</div>
+			<div class="col-sm-6 m-b30">
+				<div class="form-floating floating-underline">
+					<input name="dzLastName" type="text" class="form-control" id="questionLastName" placeholder="Last Name" required>
+					<label for="questionLastName">Last Name</label>
+				</div>
+			</div>
+			<div class="col-sm-6 m-b30">
+				<div class="form-floating floating-underline">
+					<input name="dzPhoneNumber" type="text" class="form-control dz-number" id="questionPhoneNumber" placeholder="Phone Number" required>
+					<label for="questionPhoneNumber">Phone Number</label>
+				</div>
+			</div>
+			<div class="col-sm-6 m-b30">
+				<div class="form-floating floating-underline">
+					<input name="dzEmail" type="email" class="form-control" id="questionEmail" placeholder="Your Email" required>
+					<label for="questionEmail">Your Email</label>
+				</div>
+			</div>
+			<div class="col-sm-12 m-b30">
+				<div class="form-floating floating-underline">
+					<textarea name="dzMessage" class="form-control" id="questionMessage" rows="6" placeholder="Message" required></textarea>
+					<label for="questionMessage">Message</label>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<button type="submit" class="btn btn-lg btn-icon btn-primary btn-shadow">
+					Submit Now <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
 					</div>
 				</div>
 			</div>
@@ -450,5 +448,27 @@
 <script src="../assets/js/global.min.js"></script>
 <script src="../assets/js/dz.ajax.js"></script>
 <script src="../assets/js/custom.js"></script>
+
+<script>
+document.getElementById("whatsappQuestionForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let firstName = document.getElementById("questionFirstName").value;
+    let lastName = document.getElementById("questionLastName").value;
+    let phone = document.getElementById("questionPhoneNumber").value;
+    let email = document.getElementById("questionEmail").value;
+    let messageText = document.getElementById("questionMessage").value;
+
+    let message = `Hello, I have a question.%0A
+First Name: ${firstName}%0A
+Last Name: ${lastName}%0A
+Phone: ${phone}%0A
+Email: ${email}%0A
+Message: ${messageText}`;
+
+    let whatsappURL = `https://wa.me/919142000788?text=${message}`;
+    window.open(whatsappURL, "_blank");
+});
+</script>
 </body>
 </html>
