@@ -36176,4 +36176,7 @@ footer {
   .hide-on-mobile {
     display: none !important;
   }
+  .margin-bt-mobile{
+    margin-bottom: 50px;
+  }
 }
