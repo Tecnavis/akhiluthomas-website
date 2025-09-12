@@ -115,59 +115,55 @@ button.edit-btn:hover{background:#d68910;}
 </div>
 
 <script>
-// --------- Login with SHA-256 -------------
+// Login
 async function hashString(str){
   const encoder = new TextEncoder();
   const data = encoder.encode(str);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-const storedUsernameHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
-const storedPasswordHash = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
-
+const storedUsernameHash="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+const storedPasswordHash="240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
 async function login(){
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const hashedUsername = await hashString(username);
-  const hashedPassword = await hashString(password);
+  const username=document.getElementById('username').value.trim();
+  const password=document.getElementById('password').value.trim();
+  const hashedUsername=await hashString(username);
+  const hashedPassword=await hashString(password);
   if(hashedUsername===storedUsernameHash && hashedPassword===storedPasswordHash){
     document.getElementById('loginCard').style.display='none';
     document.getElementById('adminPanel').style.display='block';
     loadBlogs();
-  } else {
-    document.getElementById('errorMsg').innerText='Invalid username or password';
-  }
+  } else document.getElementById('errorMsg').innerText='Invalid username or password';
 }
 
 // -------- Blog Admin Panel --------
-const API_URL = "https://akhiluthomas-website-backend.onrender.com/blogs"; // Updated
+const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs"; // ✅ fixed
 
-let blogs = [];
-let editId = null;
+let blogs=[];
+let editId=null;
 
 async function loadBlogs(){
-  try {
-    const res = await fetch(API_URL);
-    blogs = await res.json();
+  try{
+    const res=await fetch(API_URL);
+    blogs=await res.json();
     renderAdminTable();
-  } catch(err){
-    console.error("Failed to load blogs:", err);
-  }
+  } catch(err){ console.error("Failed to load blogs:",err); }
 }
 
 function renderAdminTable(){
-  const table = document.getElementById("blogAdminTable");
-  table.innerHTML = "";
+  const table=document.getElementById("blogAdminTable");
+  table.innerHTML="";
   if(blogs.length===0){
     table.innerHTML='<tr><td colspan="5" style="text-align:center;">No blogs found</td></tr>';
   }
   blogs.forEach((blog,i)=>{
-    table.innerHTML += `
+    const date=new Date(blog.date).toLocaleDateString();
+    table.innerHTML+=`
       <tr>
         <td>${i+1}</td>
         <td>${blog.title}</td>
         <td>${blog.author}</td>
-        <td>${blog.date}</td>
+        <td>${date}</td>
         <td>
           <button class="edit-btn" onclick="editBlog('${blog._id}')">Edit</button>
           <button class="delete-btn" onclick="deleteBlog('${blog._id}')">Delete</button>
@@ -178,20 +174,20 @@ function renderAdminTable(){
 }
 
 function editBlog(id){
-  const blog = blogs.find(b=>b._id===id);
-  document.getElementById("title").value = blog.title;
-  document.getElementById("author").value = blog.author;
-  document.getElementById("date").value = blog.date;
-  document.getElementById("image").value = blog.image;
-  document.getElementById("summary").value = blog.summary;
-  document.getElementById("content").value = blog.content;
-  editId = id;
+  const blog=blogs.find(b=>b._id===id);
+  document.getElementById("title").value=blog.title;
+  document.getElementById("author").value=blog.author;
+  document.getElementById("date").value=new Date(blog.date).toISOString().split('T')[0];
+  document.getElementById("image").value=blog.image;
+  document.getElementById("summary").value=blog.summary;
+  document.getElementById("content").value=blog.content;
+  editId=id;
   document.getElementById("formTitle").innerText="Edit Blog";
   document.getElementById("submitBtn").innerText="Update Blog";
   document.getElementById("cancelEditBtn").style.display='inline-block';
 }
 
-document.getElementById("cancelEditBtn").addEventListener("click", function(){
+document.getElementById("cancelEditBtn").addEventListener("click",function(){
   editId=null;
   document.getElementById("blogForm").reset();
   document.getElementById("formTitle").innerText="Add New Blog";
@@ -199,51 +195,47 @@ document.getElementById("cancelEditBtn").addEventListener("click", function(){
   this.style.display='none';
 });
 
-document.getElementById("blogForm").addEventListener("submit", async function(e){
+document.getElementById("blogForm").addEventListener("submit",async function(e){
   e.preventDefault();
-  const blogData = {
-    title: document.getElementById("title").value,
-    author: document.getElementById("author").value,
-    date: document.getElementById("date").value,
-    image: document.getElementById("image").value,
-    summary: document.getElementById("summary").value,
-    content: document.getElementById("content").value
+  const blogData={
+    title:document.getElementById("title").value,
+    author:document.getElementById("author").value,
+    date:document.getElementById("date").value,
+    image:document.getElementById("image").value,
+    summary:document.getElementById("summary").value,
+    content:document.getElementById("content").value
   };
   try{
+    let res;
     if(editId===null){
-      console.log("Adding blog:", blogData);
-      const res = await fetch(API_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(blogData) });
-      console.log(await res.json());
+      console.log("Adding blog:",blogData);
+      res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(blogData)});
     } else {
-      console.log("Updating blog ID:", editId, blogData);
-      const res = await fetch(`${API_URL}/${editId}`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(blogData) });
-      console.log(await res.json());
+      console.log("Updating blog ID:",editId,blogData);
+      res=await fetch(`${API_URL}/${editId}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(blogData)});
       editId=null;
       document.getElementById("formTitle").innerText="Add New Blog";
       document.getElementById("submitBtn").innerText="Add Blog";
       document.getElementById("cancelEditBtn").style.display='none';
     }
+    console.log(await res.json());
     this.reset();
     loadBlogs();
-  } catch(err){
-    console.error("Error submitting blog:", err);
-  }
+  } catch(err){ console.error("Error submitting blog:",err); }
 });
 
 async function deleteBlog(id){
   if(confirm("Are you sure you want to delete this blog?")){
     try{
-      const res = await fetch(`${API_URL}/${id}`, { method:"DELETE" });
+      const res=await fetch(`${API_URL}/${id}`,{method:"DELETE"});
       console.log(await res.json());
       loadBlogs();
-    } catch(err){
-      console.error("Failed to delete blog:", err);
-    }
+    } catch(err){ console.error("Failed to delete blog:",err); }
   }
 }
 
 // Modal
-function openModal(title, content){
+function openModal(title,content){
   document.getElementById('modalTitle').innerText=title;
   document.getElementById('modalContent').innerText=content;
   document.getElementById('contentModal').style.display='flex';
