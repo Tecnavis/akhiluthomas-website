@@ -5,337 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog Admin Panel</title>
 <style>
- body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
-  padding: 20px;
-  margin: 0;
-  color: #2c3e50;
-}
+/* ================== STYLES ================== */
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; padding: 20px; margin: 0; color: #2c3e50; }
 
-/* -------------------- LOGIN -------------------- */
-#loginCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.login-card {
-  background: #fff;
-  padding: 40px 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  width: 320px;
-  animation: fadeIn 0.5s ease;
-}
-.login-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #34495e;
-  font-weight: 600;
-}
-.login-card input {
-  width: 92%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #dcdde1;
-  transition: border 0.3s;
-}
-.login-card input:focus {
-  border-color: #3498db;
-  outline: none;
-}
-.login-card button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.login-card button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
-}
-.error {
-  color: #e74c3c;
-  font-size: 0.9rem;
-  text-align: center;
-  margin-bottom: 10px;
-}
+/* Login */
+#loginCard { display: flex; justify-content: center; align-items: center; height: 100vh; }
+.login-card { background: #fff; padding: 40px 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); width: 320px; animation: fadeIn 0.5s ease; }
+.login-card h2 { text-align: center; margin-bottom: 20px; color: #34495e; font-weight: 600; }
+.login-card input { width: 92%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #dcdde1; transition: border 0.3s; }
+.login-card input:focus { border-color: #3498db; outline: none; }
+.login-card button { width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg,#3498db,#2980b9); color: #fff; cursor: pointer; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+.login-card button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(52,152,219,0.4); }
+.error { color: #e74c3c; font-size: 0.9rem; text-align: center; margin-bottom: 10px; }
 
-/* -------------------- ADMIN PANEL -------------------- */
-#adminPanel {
-  display: none;
-  animation: fadeIn 0.5s ease;
-}
-h1 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-weight: 700;
-  color: #2c3e50;
-}
-h2.formTitle {
-  margin-bottom: 15px;
-  color: #34495e;
-  text-align: center;
-  font-weight: 600;
-}
+/* Admin Panel */
+#adminPanel { display: none; animation: fadeIn 0.5s ease; }
+h1 { text-align: center; margin-bottom: 25px; font-weight: 700; color: #2c3e50; }
+h2.formTitle { margin-bottom: 15px; color: #34495e; text-align: center; font-weight: 600; }
 
-/* -------------------- FORM -------------------- */
-form {
-  background: #ffffff;
-  padding: 35px 30px;
-  border-radius: 15px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  margin: 0 auto 40px;
-  max-width: 900px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-form:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
-}
-form h2.formTitle {
-  margin-bottom: 25px;
-  color: #34495e;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.6rem;
-  letter-spacing: 0.5px;
-}
+/* Form */
+form { background: #fff; padding: 35px 30px; border-radius: 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); margin: 0 auto 40px; max-width: 900px; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
+form:hover { transform: translateY(-3px); box-shadow: 0 16px 35px rgba(0,0,0,0.15); }
+form input, form textarea { width: 98%; padding: 14px 16px; margin-bottom: 18px; border: 1px solid #dcdde1; border-radius: 10px; font-size: 1rem; font-family: inherit; transition: border 0.3s, box-shadow 0.3s; background-color: #f9f9f9; }
+form input:focus, form textarea:focus { border-color: #3498db; outline: none; box-shadow: 0 0 8px rgba(52,152,219,0.3); }
+form button { flex: 1; padding: 14px 0; font-size: 1rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; border: none; }
+#submitBtn { background: linear-gradient(135deg,#3498db,#2980b9); color:white; margin-right:12px; }
+#submitBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(52,152,219,0.4); }
+#cancelEditBtn { background:#7f8c8d; color:white; }
+#cancelEditBtn:hover { background:#636e72; }
+form div[style*="display:flex"] { display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end; }
 
-/* Input fields */
-form input,
-form textarea {
-  width: 98%;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-  border: 1px solid #dcdde1;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: border 0.3s, box-shadow 0.3s;
-  background-color: #f9f9f9;
-}
-form input:focus,
-form textarea:focus {
-  border-color: #3498db;
-  outline: none;
-  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
-}
+/* Table */
+.table-container { overflow-x: auto; max-width:100%; }
+table { width:100%; border-collapse: collapse; background:#fff; box-shadow:0 8px 25px rgba(0,0,0,0.1); border-radius:12px; overflow:hidden; }
+th, td { padding:14px 18px; text-align:left; }
+th { background:linear-gradient(135deg,#3498db,#2980b9); color:white; font-weight:500; letter-spacing:0.5px; }
+tr:nth-child(even){background:#f9f9f9;}
+tr:hover{background:#f0f6fb;}
+button.delete-btn{background:#e74c3c;color:#fff;border:none;border-radius:6px;padding:8px 12px;cursor:pointer;}
+button.delete-btn:hover{background:#c0392b;}
+button.edit-btn{background:#f39c12;color:#fff;border:none;border-radius:6px;padding:8px 12px;margin-right:5px;}
+button.edit-btn:hover{background:#d68910;}
 
-/* Buttons */
-form button {
-  flex: 1;
-  padding: 14px 0;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-}
-#submitBtn {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
-  margin-right: 12px;
-}
-#submitBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-}
-#cancelEditBtn {
-  background: #7f8c8d;
-  color: white;
-}
-#cancelEditBtn:hover {
-  background: #636e72;
-}
+/* Modal */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;}
+.modal-content{background:#fff;padding:25px;border-radius:12px;max-width:600px;width:90%;max-height:80%;overflow-y:auto;position:relative;}
+.close-btn{position:absolute;top:10px;right:15px;background:#e74c3c;color:white;border:none;border-radius:5px;padding:6px 12px;cursor:pointer;font-size:0.9rem;}
+.close-btn:hover{background:#c0392b;}
 
-/* Button container for responsive layout */
-form div[style*="display:flex"] {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-/* -------------------- TABLE -------------------- */
-.table-container {
-  overflow-x: auto;
-  max-width: 100%;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-}
-th, td {
-  padding: 14px 18px;
-  text-align: left;
-}
-th {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-tr {
-  transition: background 0.2s;
-}
-tr:nth-child(even) {
-  background: #f9f9f9;
-}
-tr:hover {
-  background: #f0f6fb;
-}
-button.delete-btn {
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-button.delete-btn:hover {
-  background: #c0392b;
-}
-button.edit-btn {
-  background: #f39c12;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-  margin-right: 5px;
-  transition: background 0.3s;
-}
-button.edit-btn:hover {
-  background: #d68910;
-}
-
-/* -------------------- MODAL -------------------- */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.modal-content {
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80%;
-  overflow-y: auto;
-  position: relative;
-  animation: slideUp 0.3s ease;
-}
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 6px 12px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-.close-btn:hover {
-  background: #c0392b;
-}
-
-/* -------------------- MOBILE CARDS -------------------- */
-@media (max-width:768px) {
-  .table-container { display: none; }
-  .card-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .blog-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .blog-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-  }
-  .blog-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 12px;
-  }
-  .blog-card h3 {
-    margin: 6px 0;
-    color: #2c3e50;
-    font-weight: 600;
-  }
-  .blog-card p {
-    margin: 4px 0;
-    color: #555;
-    font-size: 0.95rem;
-  }
-  .blog-card .card-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-  }
-  .blog-card button {
-    flex: 1;
-    padding: 10px;
-    font-size: 0.9rem;
-    border-radius: 6px;
-  }
-  .read-more-btn {
-    background: linear-gradient(135deg, #3498db, #2980b9);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    margin-top: 6px;
-  }
-  .read-more-btn:hover {
-    background: #2980b9;
-  }
-}
-
-/* -------------------- ANIMATIONS -------------------- */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
+/* Animations */
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 </style>
 </head>
 <body>
@@ -354,7 +74,6 @@ button.edit-btn:hover {
 <!-- Admin Panel -->
 <div id="adminPanel">
   <h1>Blog Admin Panel</h1>
-
   <form id="blogForm">
     <h2 class="formTitle" id="formTitle">Add New Blog</h2>
     <input type="text" id="title" placeholder="Blog Title" required>
@@ -384,11 +103,9 @@ button.edit-btn:hover {
       <tbody id="blogAdminTable"></tbody>
     </table>
   </div>
-
-  <!-- <div class="card-container" id="blogCards"></div> -->
 </div>
 
-<!-- Modal for Full Content -->
+<!-- Modal -->
 <div class="modal" id="contentModal">
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal()">Close</button>
@@ -399,99 +116,65 @@ button.edit-btn:hover {
 
 <script>
 // --------- Login with SHA-256 -------------
-async function hashString(str) {
+async function hashString(str){
   const encoder = new TextEncoder();
   const data = encoder.encode(str);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-
-// Hashed credentials (example: "admin"/"admin123")
-const storedUsernameHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; 
+const storedUsernameHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
 const storedPasswordHash = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
 
-async function login() {
+async function login(){
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value.trim();
-
   const hashedUsername = await hashString(username);
   const hashedPassword = await hashString(password);
-
-  if (hashedUsername === storedUsernameHash && hashedPassword === storedPasswordHash) {
-    document.getElementById('loginCard').style.display = 'none';
-    document.getElementById('adminPanel').style.display = 'block';
+  if(hashedUsername===storedUsernameHash && hashedPassword===storedPasswordHash){
+    document.getElementById('loginCard').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
     loadBlogs();
   } else {
-    document.getElementById('errorMsg').innerText = 'Invalid username or password';
+    document.getElementById('errorMsg').innerText='Invalid username or password';
   }
 }
 
 // -------- Blog Admin Panel --------
-const API_URL = "https://akhiluthomas-website-backend.onrender.com"; // adjust your backend URL
+const API_URL = "https://akhiluthomas-website-backend.onrender.com/blogs"; // Updated
+
 let blogs = [];
 let editId = null;
 
-async function loadBlogs() {
-  const res = await fetch(API_URL);
-  blogs = await res.json();
-  renderAdminTable();
-  renderMobileCards();
+async function loadBlogs(){
+  try {
+    const res = await fetch(API_URL);
+    blogs = await res.json();
+    renderAdminTable();
+  } catch(err){
+    console.error("Failed to load blogs:", err);
+  }
 }
 
-function renderAdminTable() {
+function renderAdminTable(){
   const table = document.getElementById("blogAdminTable");
   table.innerHTML = "";
-  if(blogs.length===0) table.innerHTML = `<tr><td colspan="5" style="text-align:center;">No blogs found</td></tr>`;
-  blogs.forEach((blog,i)=>{
-    table.innerHTML += `<tr>
-      <td>${i+1}</td>
-      <td>${blog.title}</td>
-      <td>${blog.author}</td>
-      <td>${blog.date}</td>
-      <td>
-        <button class="edit-btn" onclick="editBlog('${blog._id}')">Edit</button>
-        <button class="delete-btn" onclick="deleteBlog('${blog._id}')">Delete</button>
-      </td>
-    </tr>`;
-  });
-}
-
-function renderMobileCards() {
-  const container = document.getElementById("blogCards");
-  container.innerHTML = "";
-  blogs.forEach(blog=>{
-    let shortSummary = blog.summary.length>100 ? blog.summary.substring(0,100)+'...' : blog.summary;
-    container.innerHTML += `<div class="blog-card">
-      <img src="${blog.image}" alt="${blog.title}">
-      <h3>${blog.title}</h3>
-      <p><strong>Author:</strong> ${blog.author}</p>
-      <p><strong>Date:</strong> ${blog.date}</p>
-      <p>${shortSummary}</p>
-      ${blog.summary.length>100 ? `<button class="read-more-btn" onclick="openModal('${blog.title}', \`${blog.summary}\`)">Read More</button>` : ''}
-      <div class="card-actions">
-        <button class="edit-btn" onclick="editBlog('${blog._id}')">Edit</button>
-        <button class="delete-btn" onclick="deleteBlog('${blog._id}')">Delete</button>
-      </div>
-    </div>`;
-  });
-}
-
-// Modal functions
-function openModal(title, content){
-  document.getElementById('modalTitle').innerText = title;
-  document.getElementById('modalContent').innerText = content;
-  document.getElementById('contentModal').style.display = 'flex';
-}
-
-function closeModal(){
-  document.getElementById('contentModal').style.display = 'none';
-}
-
-async function deleteBlog(id){
-  if(confirm("Are you sure you want to delete this blog?")){
-    await fetch(`${API_URL}/${id}`, { method:"DELETE" });
-    loadBlogs();
+  if(blogs.length===0){
+    table.innerHTML='<tr><td colspan="5" style="text-align:center;">No blogs found</td></tr>';
   }
+  blogs.forEach((blog,i)=>{
+    table.innerHTML += `
+      <tr>
+        <td>${i+1}</td>
+        <td>${blog.title}</td>
+        <td>${blog.author}</td>
+        <td>${blog.date}</td>
+        <td>
+          <button class="edit-btn" onclick="editBlog('${blog._id}')">Edit</button>
+          <button class="delete-btn" onclick="deleteBlog('${blog._id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
 }
 
 function editBlog(id){
@@ -502,19 +185,18 @@ function editBlog(id){
   document.getElementById("image").value = blog.image;
   document.getElementById("summary").value = blog.summary;
   document.getElementById("content").value = blog.content;
-
   editId = id;
-  document.getElementById("formTitle").innerText = "Edit Blog";
-  document.getElementById("submitBtn").innerText = "Update Blog";
-  document.getElementById("cancelEditBtn").style.display = 'inline-block';
+  document.getElementById("formTitle").innerText="Edit Blog";
+  document.getElementById("submitBtn").innerText="Update Blog";
+  document.getElementById("cancelEditBtn").style.display='inline-block';
 }
 
 document.getElementById("cancelEditBtn").addEventListener("click", function(){
-  editId = null;
+  editId=null;
   document.getElementById("blogForm").reset();
-  document.getElementById("formTitle").innerText = "Add New Blog";
-  document.getElementById("submitBtn").innerText = "Add Blog";
-  this.style.display = 'none';
+  document.getElementById("formTitle").innerText="Add New Blog";
+  document.getElementById("submitBtn").innerText="Add Blog";
+  this.style.display='none';
 });
 
 document.getElementById("blogForm").addEventListener("submit", async function(e){
@@ -527,20 +209,46 @@ document.getElementById("blogForm").addEventListener("submit", async function(e)
     summary: document.getElementById("summary").value,
     content: document.getElementById("content").value
   };
-
-  if(editId===null){
-    await fetch(API_URL,{ method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(blogData) });
-  } else {
-    await fetch(`${API_URL}/${editId}`,{ method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(blogData) });
-    editId=null;
-    document.getElementById("formTitle").innerText = "Add New Blog";
-    document.getElementById("submitBtn").innerText = "Add Blog";
-    document.getElementById("cancelEditBtn").style.display='none';
+  try{
+    if(editId===null){
+      console.log("Adding blog:", blogData);
+      const res = await fetch(API_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(blogData) });
+      console.log(await res.json());
+    } else {
+      console.log("Updating blog ID:", editId, blogData);
+      const res = await fetch(`${API_URL}/${editId}`, { method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(blogData) });
+      console.log(await res.json());
+      editId=null;
+      document.getElementById("formTitle").innerText="Add New Blog";
+      document.getElementById("submitBtn").innerText="Add Blog";
+      document.getElementById("cancelEditBtn").style.display='none';
+    }
+    this.reset();
+    loadBlogs();
+  } catch(err){
+    console.error("Error submitting blog:", err);
   }
-  this.reset();
-  loadBlogs();
 });
-</script>
 
+async function deleteBlog(id){
+  if(confirm("Are you sure you want to delete this blog?")){
+    try{
+      const res = await fetch(`${API_URL}/${id}`, { method:"DELETE" });
+      console.log(await res.json());
+      loadBlogs();
+    } catch(err){
+      console.error("Failed to delete blog:", err);
+    }
+  }
+}
+
+// Modal
+function openModal(title, content){
+  document.getElementById('modalTitle').innerText=title;
+  document.getElementById('modalContent').innerText=content;
+  document.getElementById('contentModal').style.display='flex';
+}
+function closeModal(){ document.getElementById('contentModal').style.display='none'; }
+</script>
 </body>
 </html>
