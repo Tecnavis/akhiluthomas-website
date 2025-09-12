@@ -5,62 +5,337 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog Admin Panel</title>
 <style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 20px; margin:0; }
+ body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  padding: 20px;
+  margin: 0;
+  color: #2c3e50;
+}
 
-  /* Login Card */
-  #loginCard { display:flex; justify-content:center; align-items:center; height:100vh; }
-  .login-card { background:#fff; padding:30px; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); width:300px; }
-  h2 { text-align:center; margin-bottom:15px; color:#2c3e50; }
-  input { width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc; }
-  button { width:100%; padding:12px; border:none; border-radius:8px; background:#3498db; color:#fff; cursor:pointer; font-size:1rem; }
-  button:hover { background:#2980b9; }
-  .error { color:red; font-size:0.9rem; text-align:center; margin-bottom:10px; }
+/* -------------------- LOGIN -------------------- */
+#loginCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 320px;
+  animation: fadeIn 0.5s ease;
+}
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #34495e;
+  font-weight: 600;
+}
+.login-card input {
+  width: 92%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #dcdde1;
+  transition: border 0.3s;
+}
+.login-card input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.login-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+.error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-  /* Admin Panel */
-  #adminPanel { display:none; }
-  h1 { text-align:center; margin-bottom:20px; color:#2c3e50; }
-  h2.formTitle { margin-bottom:15px; color:#34495e; text-align:center; }
+/* -------------------- ADMIN PANEL -------------------- */
+#adminPanel {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+h2.formTitle {
+  margin-bottom: 15px;
+  color: #34495e;
+  text-align: center;
+  font-weight: 600;
+}
 
-  form { background:#fff; padding:25px; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin-bottom:30px; max-width:800px; margin:auto; transition: transform 0.3s ease; }
-  form:hover { transform: translateY(-2px); }
-  form input, form textarea { width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px; font-size:1rem; }
-  form input:focus, form textarea:focus { border-color:#3498db; outline:none; }
-  #submitBtn { background:#3498db; color:white; }
-  #submitBtn:hover { background:#2980b9; }
-  #cancelEditBtn { background:#7f8c8d; color:white; margin-left:10px; }
-  #cancelEditBtn:hover { background:#636e72; }
+/* -------------------- FORM -------------------- */
+form {
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 15px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  margin: 0 auto 40px;
+  max-width: 900px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+form:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
+}
+form h2.formTitle {
+  margin-bottom: 25px;
+  color: #34495e;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
 
-  /* Desktop Table */
-  .table-container { overflow-x:auto; max-width:100%; }
-  table { width:100%; border-collapse:collapse; background:#fff; box-shadow:0 6px 15px rgba(0,0,0,0.1); border-radius:10px; overflow:hidden; }
-  th, td { padding:12px 15px; text-align:left; }
-  th { background:#3498db; color:white; font-weight:500; }
-  tr:nth-child(even) { background:#f9f9f9; }
-  button.delete-btn { background:#e74c3c; margin-top:5px; }
-  button.delete-btn:hover { background:#c0392b; }
-  button.edit-btn { background:#f39c12; margin-right:5px; margin-top:5px; }
-  button.edit-btn:hover { background:#d68910; }
+/* Input fields */
+form input,
+form textarea {
+  width: 98%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid #dcdde1;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border 0.3s, box-shadow 0.3s;
+  background-color: #f9f9f9;
+}
+form input:focus,
+form textarea:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
 
-  /* Mobile Cards */
-  @media (max-width:768px) {
-    .table-container { display:none; }
-    .card-container { display:flex; flex-direction:column; gap:20px; }
-    .blog-card { background:#fff; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); overflow:hidden; padding:15px; display:flex; flex-direction:column; transition: transform 0.3s ease; }
-    .blog-card:hover { transform: translateY(-2px); }
-    .blog-card img { width:100%; height:180px; object-fit:cover; border-radius:8px; margin-bottom:10px; }
-    .blog-card h3 { margin:5px 0; color:#2c3e50; }
-    .blog-card p { margin:3px 0; color:#555; }
-    .blog-card .card-actions { display:flex; gap:10px; margin-top:10px; }
-    .blog-card button { flex:1; padding:10px; font-size:0.9rem; }
-    .read-more-btn { background:#3498db; color:white; border:none; border-radius:5px; padding:5px 10px; cursor:pointer; font-size:0.85rem; margin-top:5px; }
-    .read-more-btn:hover { background:#2980b9; }
+/* Buttons */
+form button {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+#submitBtn {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  margin-right: 12px;
+}
+#submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+}
+#cancelEditBtn {
+  background: #7f8c8d;
+  color: white;
+}
+#cancelEditBtn:hover {
+  background: #636e72;
+}
+
+/* Button container for responsive layout */
+form div[style*="display:flex"] {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* -------------------- TABLE -------------------- */
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+}
+th {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+tr {
+  transition: background 0.2s;
+}
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
+tr:hover {
+  background: #f0f6fb;
+}
+button.delete-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+button.delete-btn:hover {
+  background: #c0392b;
+}
+button.edit-btn {
+  background: #f39c12;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background 0.3s;
+}
+button.edit-btn:hover {
+  background: #d68910;
+}
+
+/* -------------------- MODAL -------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.close-btn:hover {
+  background: #c0392b;
+}
+
+/* -------------------- MOBILE CARDS -------------------- */
+@media (max-width:768px) {
+  .table-container { display: none; }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
+  .blog-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .blog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+  }
+  .blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .blog-card h3 {
+    margin: 6px 0;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  .blog-card p {
+    margin: 4px 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  .blog-card .card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .blog-card button {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+  .read-more-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 6px;
+  }
+  .read-more-btn:hover {
+    background: #2980b9;
+  }
+}
 
-  /* Modal */
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000; }
-  .modal-content { background:#fff; padding:20px; border-radius:10px; max-width:500px; width:90%; max-height:80%; overflow-y:auto; position:relative; }
-  .close-btn { position:absolute; top:10px; right:15px; background:#e74c3c; color:white; border:none; border-radius:5px; padding:5px 10px; cursor:pointer; }
-  .close-btn:hover { background:#c0392b; }
+/* -------------------- ANIMATIONS -------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 </style>
 </head>
 <body>
