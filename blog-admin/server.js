@@ -83,6 +83,10 @@ app.get("/api/blogs/:id", async (req, res) => {
 // CREATE new blog
 app.post("/api/blogs", async (req, res) => {
   try {
+    // convert date string (YYYY-MM-DD) to Date object
+    if (req.body.date) {
+      req.body.date = new Date(req.body.date);
+    }
     const blog = new Blog(req.body);
     await blog.save();
     res.json({ message: "Blog created successfully", blog });
@@ -95,6 +99,10 @@ app.post("/api/blogs", async (req, res) => {
 // UPDATE blog
 app.put("/api/blogs/:id", async (req, res) => {
   try {
+    // convert date string (YYYY-MM-DD) to Date object
+    if (req.body.date) {
+      req.body.date = new Date(req.body.date);
+    }
     const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!blog) return res.status(404).json({ error: "Blog not found" });
     res.json({ message: "Blog updated successfully", blog });
