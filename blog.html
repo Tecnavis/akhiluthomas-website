@@ -425,7 +425,7 @@
 <script src="../assets/js/dz.ajax.js"></script>
 <script src="../assets/js/custom.js"></script>
 <script>
-const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs"; // ✅ fixed
+const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs"; 
 let page = 1; // Current page for pagination
 let searchQuery = "";
 
@@ -460,7 +460,7 @@ async function loadBlogs(loadMore = false) {
             </div>
             <div class="dz-info">
               <h3 class="dz-title">
-                <a href="javascript:void(0);" onclick="openModal('${blog._id}')">${blog.title}</a>
+                <a href="blog-single.html?id=${blog._id}">${blog.title}</a>
               </h3>
               <p>${blog.summary}</p>
               <div class="dz-meta">
@@ -470,7 +470,7 @@ async function loadBlogs(loadMore = false) {
                 </ul>
               </div>
             </div>
-            <a href="javascript:void(0);" onclick="openModal('${blog._id}')" class="btn btn-square btn-secondary rounded-circle">
+            <a href="blog-single.html?id=${blog._id}" class="btn btn-square btn-secondary rounded-circle">
               <i class="feather icon-arrow-up-right"></i>
             </a>
           </div>
