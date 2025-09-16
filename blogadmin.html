@@ -47,15 +47,8 @@ button.delete-btn:hover{background:#c0392b;}
 button.edit-btn{background:#f39c12;color:#fff;border:none;border-radius:6px;padding:8px 12px;margin-right:5px;}
 button.edit-btn:hover{background:#d68910;}
 
-/* Modal */
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;}
-.modal-content{background:#fff;padding:25px;border-radius:12px;max-width:600px;width:90%;max-height:80%;overflow-y:auto;position:relative;}
-.close-btn{position:absolute;top:10px;right:15px;background:#e74c3c;color:white;border:none;border-radius:5px;padding:6px 12px;cursor:pointer;font-size:0.9rem;}
-.close-btn:hover{background:#c0392b;}
-
 /* Animations */
 @keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
-@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 </style>
 </head>
 <body>
@@ -80,8 +73,8 @@ button.edit-btn:hover{background:#d68910;}
     <input type="text" id="author" placeholder="Author Name" required>
     <input type="date" id="date" required>
     <input type="text" id="image" placeholder="Image URL" required>
-    <textarea id="summary" placeholder="Short Summary" required></textarea>
-    <textarea id="content" placeholder="Full Content" required></textarea>
+    <textarea id="summary" placeholder="Short Summary"></textarea>
+    <textarea id="content" placeholder="Full Content"></textarea>
     <div style="display:flex; flex-wrap:wrap;">
       <button type="submit" id="submitBtn">Add Blog</button>
       <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
@@ -105,14 +98,17 @@ button.edit-btn:hover{background:#d68910;}
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="contentModal">
-  <div class="modal-content">
-    <button class="close-btn" onclick="closeModal()">Close</button>
-    <h3 id="modalTitle"></h3>
-    <p id="modalContent"></p>
-  </div>
-</div>
+<!-- TinyMCE (No API Key Needed - cdnjs) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+tinymce.init({
+  selector: '#summary, #content',
+  plugins: 'lists link image table code',
+  toolbar: 'undo redo | bold italic underline | bullist numlist | h2 h3 | link image | code',
+  menubar: false,
+  height: 300
+});
+</script>
 
 <script>
 // Login
@@ -122,8 +118,8 @@ async function hashString(str){
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-const storedUsernameHash="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
-const storedPasswordHash="240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
+const storedUsernameHash="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // admin
+const storedPasswordHash="240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // password
 async function login(){
   const username=document.getElementById('username').value.trim();
   const password=document.getElementById('password').value.trim();
@@ -137,7 +133,7 @@ async function login(){
 }
 
 // -------- Blog Admin Panel --------
-const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs"; // ✅ fixed
+const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs";
 
 let blogs=[];
 let editId=null;
@@ -179,8 +175,10 @@ function editBlog(id){
   document.getElementById("author").value=blog.author;
   document.getElementById("date").value=new Date(blog.date).toISOString().split('T')[0];
   document.getElementById("image").value=blog.image;
-  document.getElementById("summary").value=blog.summary;
-  document.getElementById("content").value=blog.content;
+
+  tinymce.get("summary").setContent(blog.summary || "");
+  tinymce.get("content").setContent(blog.content || "");
+
   editId=id;
   document.getElementById("formTitle").innerText="Edit Blog";
   document.getElementById("submitBtn").innerText="Update Blog";
@@ -190,6 +188,8 @@ function editBlog(id){
 document.getElementById("cancelEditBtn").addEventListener("click",function(){
   editId=null;
   document.getElementById("blogForm").reset();
+  tinymce.get("summary").setContent("");
+  tinymce.get("content").setContent("");
   document.getElementById("formTitle").innerText="Add New Blog";
   document.getElementById("submitBtn").innerText="Add Blog";
   this.style.display='none';
@@ -202,16 +202,14 @@ document.getElementById("blogForm").addEventListener("submit",async function(e){
     author:document.getElementById("author").value,
     date:document.getElementById("date").value,
     image:document.getElementById("image").value,
-    summary:document.getElementById("summary").value,
-    content:document.getElementById("content").value
+    summary:tinymce.get("summary").getContent(),
+    content:tinymce.get("content").getContent()
   };
   try{
     let res;
     if(editId===null){
-      console.log("Adding blog:",blogData);
       res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(blogData)});
     } else {
-      console.log("Updating blog ID:",editId,blogData);
       res=await fetch(`${API_URL}/${editId}`,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(blogData)});
       editId=null;
       document.getElementById("formTitle").innerText="Add New Blog";
@@ -220,6 +218,8 @@ document.getElementById("blogForm").addEventListener("submit",async function(e){
     }
     console.log(await res.json());
     this.reset();
+    tinymce.get("summary").setContent("");
+    tinymce.get("content").setContent("");
     loadBlogs();
   } catch(err){ console.error("Error submitting blog:",err); }
 });
@@ -233,14 +233,6 @@ async function deleteBlog(id){
     } catch(err){ console.error("Failed to delete blog:",err); }
   }
 }
-
-// Modal
-function openModal(title,content){
-  document.getElementById('modalTitle').innerText=title;
-  document.getElementById('modalContent').innerText=content;
-  document.getElementById('contentModal').style.display='flex';
-}
-function closeModal(){ document.getElementById('contentModal').style.display='none'; }
 </script>
 </body>
 </html>
