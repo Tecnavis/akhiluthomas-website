@@ -177,99 +177,67 @@
 	</header>
 	<!-- Header End -->
 	
-	<main class="page-content">
-	
-			<div class="dz-bnr-inr style-2 dz-bnr-inr-md">
-		<div class="container">
-			<div class="dz-bnr-inr-entry">
-				<div class="dz-bnr-inr-flex">
-					<div class="bnr-info">
-						<h1 class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Blogs</h1>
-						<nav aria-label="breadcrumb" class="breadcrumb-row wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
-							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html"> Home</a></li>
-								<li class="breadcrumb-item">Blogs</li>
-							</ul>
-						</nav>
-					</div>
-					<div class="bnr-media" data-bottom-top="transform: translateY(-100px)" data-top-bottom="transform: translateY(100px)">
-						<img src="images/blogpic.webp" alt="" class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item1" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(0px)"><img class="move-1" src="images/hero-banner/img2.webp" alt=""></div>
-		<div class="item2" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"><img class="move-2" src="images/hero-banner/img4.webp" alt=""></div>
-		<div class="item3" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"><img class="move-3" src="images/hero-banner/img3.webp" alt=""></div>
-		<svg class="banner-shape" viewBox="0 0 1920 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M1921 164.375C1734.2 -139.225 527.167 48.8754 -33 180.875H1921V164.375Z" fill="var(--bs-primary)"></path>
-			<path d="M1921 164.375C1714.2 -59.2247 527.167 58.8754 -33 180.875H1921V164.375Z" fill="white"></path>
-		</svg>
-		<div class="banner-shape4"></div>
-		<div class="banner-shape5"></div>
-	</div>
-		
-<section class="content-inner">
-  <div class="container">
-    <div class="row">
-      <!-- BLOG LIST -->
-      <div class="col-xl-8 col-lg-12 m-b30">
-        <div class="row loadmore-content" id="blog-list">
-          <!-- Dynamic Blogs will load here -->
-        </div>
-
-        <div class="text-center m-t30 m-lg-t0 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
-          <a href="javascript:void(0);" class="btn btn-lg btn-icon btn-secondary dz-load-more" onclick="loadBlogs()">
-            Load More <span class="right-icon"><i class="feather icon-refresh-ccw"></i></span>
-          </a>
-        </div>
-      </div>
-
-      <!-- SIDEBAR -->
-      <div class="col-xl-4 col-lg-12 m-b30">
-        <aside class="side-bar sticky-top m-b30">
-          <div class="widget widget-bx bg-light wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
-            <div class="widget-title">
-              <h4 class="title">Search</h4>
+  <main class="page-content">
+    <div class="dz-bnr-inr style-2 dz-bnr-inr-md">
+      <div class="container">
+        <div class="dz-bnr-inr-entry">
+          <div class="dz-bnr-inr-flex">
+            <div class="bnr-info">
+              <h1>Blogs</h1>
+              <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item">Blogs</li>
+                </ul>
+              </nav>
             </div>
-            <div class="search-bx">
-              <div class="input-group mb-0">
-                <input id="searchInput" class="form-control bg-white" placeholder="Search" type="text" onkeyup="filterBlogs()">
-                <div class="input-group-btn">
-                  <button type="button">
-                    <i class="feather icon-search"></i>
-                  </button>
-                </div>
-              </div>
+            <div class="bnr-media">
+              <img src="images/blogpic.webp" alt="">
             </div>
           </div>
-
-          <div class="widget recent-posts-entry widget-bx bg-light wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
-            <div class="widget-title">
-              <h4 class="title">Latest Post</h4>
-            </div>
-            <div class="widget-post-bx" id="latest-posts">
-              <!-- Latest posts will also be loaded dynamically -->
-            </div>
-          </div>
-        </aside>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- BLOG MODAL -->
-<div id="blogModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
-  <div style="background:#fff; max-width:700px; margin:50px auto; padding:20px; border-radius:10px; position:relative;">
-    <span onclick="closeModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:20px;">&times;</span>
-    <h2 id="modal-title"></h2>
-    <p><em id="modal-author"></em> | <span id="modal-date"></span></p>
-    <img id="modal-image" src="" alt="" style="max-width:100%; margin-bottom:15px;">
-    <p id="modal-content"></p>
-  </div>
-</div>
-		
-	</main>
+    <section class="content-inner">
+      <div class="container">
+        <div class="row">
+          <!-- BLOG LIST -->
+          <div class="col-xl-8 col-lg-12 m-b30">
+            <div class="row loadmore-content" id="blog-list"></div>
+
+            <div class="text-center m-t30">
+              <a href="javascript:void(0);" class="btn btn-lg btn-icon btn-secondary dz-load-more" onclick="loadBlogs(true)">
+                Load More <span class="right-icon"><i class="feather icon-refresh-ccw"></i></span>
+              </a>
+            </div>
+          </div>
+
+          <!-- SIDEBAR -->
+          <div class="col-xl-4 col-lg-12 m-b30">
+            <aside class="side-bar sticky-top m-b30">
+              <div class="widget widget-bx bg-light">
+                <div class="widget-title"><h4 class="title">Search</h4></div>
+                <div class="search-bx">
+                  <div class="input-group mb-0">
+                    <input id="searchInput" class="form-control bg-white" placeholder="Search" type="text" onkeyup="filterBlogs()">
+                    <div class="input-group-btn">
+                      <button type="button"><i class="feather icon-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="widget recent-posts-entry widget-bx bg-light">
+                <div class="widget-title"><h4 class="title">Latest Post</h4></div>
+                <div class="widget-post-bx" id="latest-posts"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 	
 	<!-- Footer -->
 	<footer class="site-footer style-1 footer-dark" style="background-image: url(images/background/bg5.webp)">
@@ -426,13 +394,12 @@
 <script src="../assets/js/custom.js"></script>
 <script>
 const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs"; 
-let page = 1; // Current page for pagination
+let page = 1;
 let searchQuery = "";
 
-// Load blogs (with optional load more)
 async function loadBlogs(loadMore = false) {
   try {
-    if (!loadMore) page = 1; // Reset page on new search
+    if (!loadMore) page = 1;
     const url = `${API_URL}?page=${page}&limit=6&search=${encodeURIComponent(searchQuery)}`;
     const res = await fetch(url);
     const blogs = await res.json();
@@ -451,9 +418,9 @@ async function loadBlogs(loadMore = false) {
     }
 
     blogs.forEach((blog, i) => {
-      // Main blog cards
+      // Blog cards
       container.innerHTML += `
-        <div class="col-xl-6 col-md-6 m-b30 wow fadeInUp" data-wow-delay="0.${i+2}s" data-wow-duration="0.8s">
+        <div class="col-xl-6 col-md-6 m-b30">
           <div class="dz-card style-1">
             <div class="dz-media">
               <img src="${blog.image}" alt="">
@@ -477,7 +444,7 @@ async function loadBlogs(loadMore = false) {
         </div>
       `;
 
-      // Latest posts sidebar (first 3 only)
+      // Sidebar latest (first 3 only)
       if (!loadMore && i < 3) {
         latest.innerHTML += `
           <div class="widget-post clearfix">
@@ -485,55 +452,26 @@ async function loadBlogs(loadMore = false) {
               <img src="${blog.image}" alt="">
             </div>
             <div class="dz-info">
-              <div class="dz-meta">
-                <ul>
-                  <li class="post-date"><a href="javascript:void(0);">${new Date(blog.date).toLocaleDateString()}</a></li>
-                </ul>
-              </div>
-              <h6 class="title"><a href="javascript:void(0);" onclick="openModal('${blog._id}')">${blog.title}</a></h6>
+              <div class="dz-meta"><ul><li class="post-date">${new Date(blog.date).toLocaleDateString()}</li></ul></div>
+              <h6 class="title"><a href="blog-single.html?id=${blog._id}">${blog.title}</a></h6>
             </div>
           </div>
         `;
       }
     });
 
-    if (blogs.length > 0) page++; // Increment page for next load
+    if (blogs.length > 0) page++;
   } catch (err) {
     console.error("Error loading blogs:", err);
     if (!loadMore) document.getElementById("blog-list").innerHTML = "<p>Failed to load blogs.</p>";
   }
 }
 
-// Search handler
 function filterBlogs() {
   searchQuery = document.getElementById("searchInput").value.trim();
-  loadBlogs(false); // reload from first page
+  loadBlogs(false);
 }
 
-// Open modal to show single blog details
-async function openModal(id) {
-  try {
-    const res = await fetch(`${API_URL}/${id}`);
-    const blog = await res.json();
-
-    document.getElementById("modal-title").innerText = blog.title;
-    document.getElementById("modal-author").innerText = blog.author;
-    document.getElementById("modal-date").innerText = new Date(blog.date).toLocaleDateString();
-    document.getElementById("modal-image").src = blog.image;
-    document.getElementById("modal-content").innerText = blog.content;
-    document.getElementById("blogModal").style.display = "block";
-  } catch (err) {
-    console.error("Error loading blog details:", err);
-    alert("Failed to load blog details.");
-  }
-}
-
-// Close modal
-function closeModal() {
-  document.getElementById("blogModal").style.display = "none";
-}
-
-// Load blogs on page load
 document.addEventListener("DOMContentLoaded", () => loadBlogs(false));
 </script>
 

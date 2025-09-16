@@ -171,47 +171,33 @@
 	</header>
 	<!-- Header End -->
 
+ 
   <main class="page-content">
+    <div class="dz-bnr-inr style-2 dz-bnr-inr-md">
+      <div class="container">
+        <div class="dz-bnr-inr-entry">
+          <div class="dz-bnr-inr-flex">
+            <div class="bnr-info">
+              <h1 id="blog-title">Loading...</h1>
+              <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="blog.html">Blogs</a></li>
+                  <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-title">Loading...</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			<div class="dz-bnr-inr style-2 dz-bnr-inr-md">
-		<div class="container">
-			<div class="dz-bnr-inr-entry">
-				<div class="dz-bnr-inr-flex">
-					<div class="bnr-info">
-						<h1 class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">Blogs</h1>
-						<nav aria-label="breadcrumb" class="breadcrumb-row">
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="blog.html">Blogs</a></li>
-                                <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-title">Loading...</li>
-                            </ul>
-                            </nav>
-
-					</div>
-					<div class="bnr-media" data-bottom-top="transform: translateY(-100px)" data-top-bottom="transform: translateY(100px)">
-						<img src="images/blogpic.webp" alt="" class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="item1" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(0px)"><img class="move-1" src="images/hero-banner/img2.webp" alt=""></div>
-		<div class="item2" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"><img class="move-2" src="images/hero-banner/img4.webp" alt=""></div>
-		<div class="item3" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)"><img class="move-3" src="images/hero-banner/img3.webp" alt=""></div>
-		<svg class="banner-shape" viewBox="0 0 1920 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M1921 164.375C1734.2 -139.225 527.167 48.8754 -33 180.875H1921V164.375Z" fill="var(--bs-primary)"></path>
-			<path d="M1921 164.375C1714.2 -59.2247 527.167 58.8754 -33 180.875H1921V164.375Z" fill="white"></path>
-		</svg>
-		<div class="banner-shape4"></div>
-		<div class="banner-shape5"></div>
-	</div>
-
-    <!-- Blog Content -->
     <section class="content-inner bg-light">
       <div class="container">
         <div class="row">
-          <!-- Blog Single Content -->
+          <!-- Blog content -->
           <div class="col-xl-8 col-lg-12 m-b30">
-            <div class="dz-card style-1">
+            <div id="blog-card" class="dz-card style-1">
               <div class="dz-media m-b30">
                 <img id="blog-image" src="" alt="" class="w-100 rounded">
               </div>
@@ -239,7 +225,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
  	<!-- Footer -->
@@ -396,48 +381,68 @@
 <script src="../assets/js/dz.ajax.js"></script>
 <script src="../assets/js/custom.js"></script>
 <script>
-  const API_URL = "https://akhiluthomas-website-backend.onrender.com/api/blogs";
-  const params = new URLSearchParams(window.location.search);
-  const blogId = params.get("id");
+const API_URL = "https://akhiluthomas-website-backend.onrender.com/api/blogs";
+const params = new URLSearchParams(window.location.search);
+const blogId = params.get("id");
 
-  console.log("Blog ID from URL:", blogId); // ✅ Debug
+async function loadBlog() {
+  if (!blogId) {
+    document.getElementById("blog-card").innerHTML = "<p>❌ No blog ID provided.</p>";
+    return;
+  }
 
-  async function loadBlog() {
-    if (!blogId) {
-      document.querySelector(".dz-card").innerHTML = "<p>❌ No blog ID found in URL.</p>";
+  try {
+    const res = await fetch(`${API_URL}/${blogId}`);
+    if (!res.ok) throw new Error("Invalid response " + res.status);
+    const blog = await res.json();
+
+    if (!blog || blog.error) {
+      document.getElementById("blog-card").innerHTML = "<p>❌ Blog not found.</p>";
       return;
     }
 
-    try {
-      const res = await fetch(`${API_URL}/${blogId}`);
-      if (!res.ok) throw new Error("Failed to fetch blog. Status: " + res.status);
+    // Fill blog content
+    document.getElementById("blog-title").innerText = blog.title;
+    document.getElementById("breadcrumb-title").innerText = blog.title;
+    document.getElementById("blog-author").innerText = blog.author;
+    document.getElementById("blog-date").innerText = new Date(blog.date).toLocaleDateString();
+    document.getElementById("blog-image").src = blog.image;
+    document.getElementById("blog-content").innerHTML = blog.content;
 
-      const blog = await res.json();
-      console.log("Fetched blog:", blog); // ✅ Debug
+    // SEO
+    document.title = blog.title + " | Akhilu Thomas";
+    document.getElementById("meta-description").setAttribute("content", blog.summary);
 
-      if (!blog || blog.error) {
-        document.querySelector(".dz-card").innerHTML = "<p>❌ Blog not found.</p>";
-        return;
-      }
-
-      // Populate content
-      document.getElementById("blog-title").innerText = blog.title;
-    //   document.getElementById("breadcrumb-title").innerText = blog.title;
-      document.getElementById("blog-author").innerText = blog.author;
-      document.getElementById("blog-date").innerText = new Date(blog.date).toLocaleDateString();
-      document.getElementById("blog-image").src = blog.image;
-      document.getElementById("blog-content").innerHTML = blog.content;
-
-      // SEO
-      document.title = blog.title + " | Akhilu Thomas";
-      document.getElementById("meta-description").setAttribute("content", blog.summary);
-    } catch (err) {
-      console.error("Error loading blog:", err);
-      document.querySelector(".dz-card").innerHTML = "<p>⚠️ Error loading blog.</p>";
-    }
+    loadLatest();
+  } catch (err) {
+    console.error("Error loading blog:", err);
+    document.getElementById("blog-card").innerHTML = "<p>⚠️ Error loading blog.</p>";
   }
+}
 
-  document.addEventListener("DOMContentLoaded", loadBlog);
+async function loadLatest() {
+  try {
+    const res = await fetch(`${API_URL}?limit=3`);
+    const blogs = await res.json();
+    const latest = document.getElementById("latest-posts");
+    latest.innerHTML = "";
+    blogs.forEach(blog => {
+      latest.innerHTML += `
+        <div class="widget-post clearfix">
+          <div class="dz-media"><img src="${blog.image}" alt=""></div>
+          <div class="dz-info">
+            <div class="dz-meta"><ul><li class="post-date">${new Date(blog.date).toLocaleDateString()}</li></ul></div>
+            <h6 class="title"><a href="blog-single.html?id=${blog._id}">${blog.title}</a></h6>
+          </div>
+        </div>
+      `;
+    });
+  } catch (err) {
+    console.error("Error loading latest posts:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadBlog);
 </script>
 
 </body>
