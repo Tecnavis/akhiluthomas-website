@@ -437,7 +437,8 @@ async function loadLatest() {
           <div class="dz-media"><img src="${blog.image}" alt=""></div>
           <div class="dz-info">
             <div class="dz-meta"><ul><li class="post-date">${new Date(blog.date).toLocaleDateString()}</li></ul></div>
-            <h6 class="title"><a href="blog-single.html?slug=${blog.slug}">${blog.title}</a></h6>
+            <h6 class="title"><a href="/blogs/${blog.slug}">${blog.title}</a>
+</h6>
           </div>
         </div>
       `;
