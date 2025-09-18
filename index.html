@@ -52,8 +52,7 @@
 	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 </head>	
 <body id="bg">
 <div class="page-wraper">
@@ -216,7 +215,7 @@
 								<span class="rating">(4.9)</span>
 								<span class="text">12k+ ratings on google</span>
 
-								<a href="about-us.html" class="btn btn-square btn-xl btn-white shadow-sm btn-rounded">
+								<a href="https://www.google.com/search?q=akhiluthomas&rlz=1C1UEAD_enIN1093IN1093&oq=akhiluthomas&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDwyCwgCEAAYChgNGIAEMgwIAxAuGA0Y1AIYgAQyBggEEEUYPDIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBCDY1NDNqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8#" class="btn btn-square btn-xl btn-white shadow-sm btn-rounded">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M7 17L17 7" stroke="var(--bs-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 										<path d="M7 7H17V17" stroke="var(--bs-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -300,12 +299,13 @@
 					<div class="info-widget style-15 overlay-secondary-dark wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s" style="background-image: url(images/about/session.webp);">
 						<div class="row">
 							<div class="col-sm-6 d-flex align-items-center mb-4 mb-sm-0">
-								<div class="video-bx2">
-									<a  href="https://youtu.be/Z7mw9avlEGw?si=CUO9eiwuSj_tegIo" class="video-btn popup-youtube">
-										<i class="fa fa-play"></i>
-									</a>
-									<span class="text-white">Watch Counselling Insights</span>
+									<div class="video-bx2">
+								<a href="https://youtu.be/Z7mw9avlEGw?si=zhLIunvhoYCBwWre" class="video-btn popup-youtube">
+									<i class="fa fa-play"></i>
+								</a>
+								<span class="text-white">Watch Counselling Insights</span>
 								</div>
+
 							</div>
 							<div class="col-sm-6 ps-sm-4">
 								<ul class="list-check-try text-white light-green fw-medium">
@@ -680,7 +680,7 @@
 			<div class="col-xl-5 col-lg-5 d-lg-block d-none m-b30 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
 				<div class="info-widget style-15 overlay-secondary-middle d-flex align-items-center" style="background-image: url(images/services/img1.webp);">
 					<div class="video-bx2">
-						<a href="https://www.youtube.com/watch?v=o8OgzQdA70c" class="video-btn popup-youtube">
+						<a href="https://youtu.be/Z7mw9avlEGw?si=zhLIunvhoYCBwWre" class="video-btn popup-youtube">
 							<i class="fa fa-play"></i>
 						</a>
 						<span class="text-white">Play Video</span>
@@ -863,17 +863,21 @@
 												<i class="feather icon-home"></i>
 											</span>
 										</div>
+										
 										<div class="icon-content">
+											<a href="https://maps.app.goo.gl/PupTp1LNEgi68PVb7">
 											<h5 class="dz-title fw-semibold">Home Address:</h5>
 											<p>
 												Pezhungal House, Rockwell Nad Road, Kalamasseri, kochi - 683503
 												
 											</p>
-
+											</a>
+											<a href="https://maps.app.goo.gl/MSbEmHtp7FViPmKp6">
 											<h5 class="dz-title fw-semibold mt-3">Office Address:</h5>
 											<p>
 												ABM Arcade, Mundampalam, Edapally-Pukattupadi Road, Thrikkakara, Kochi - 682021
 											</p>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -1164,16 +1168,13 @@ Message: ${messageText}`;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script>
-$(document).ready(function() {
-  $('.popup-youtube').magnificPopup({
-    type: 'iframe',
-    mainClass: 'mfp-fade',
-    removalDelay: 160,
-    preloader: false,
-    fixedContentPos: false
+  $(document).ready(function() {
+    $('.popup-youtube').magnificPopup({
+      type: 'iframe'
+    });
   });
-});
 </script>
+
 
 </body>
 </html>
