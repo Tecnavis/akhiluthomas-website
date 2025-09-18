@@ -384,16 +384,16 @@
 <script>
 const API_URL = "https://akhiluthomas-website-backend.onrender.com/api/blogs";
 const params = new URLSearchParams(window.location.search);
-const blogId = params.get("id");
+const slug = params.get("slug");
 
 async function loadBlog() {
-  if (!blogId) {
-    document.getElementById("blog-card").innerHTML = "<p>❌ No blog ID provided.</p>";
+  if (!slug) {
+    document.getElementById("blog-card").innerHTML = "<p>❌ No blog slug provided.</p>";
     return;
   }
 
   try {
-    const res = await fetch(`${API_URL}/${blogId}`);
+    const res = await fetch(`${API_URL}/slug/${slug}`);
     if (!res.ok) throw new Error("Invalid response " + res.status);
     const blog = await res.json();
 
@@ -433,7 +433,7 @@ async function loadLatest() {
           <div class="dz-media"><img src="${blog.image}" alt=""></div>
           <div class="dz-info">
             <div class="dz-meta"><ul><li class="post-date">${new Date(blog.date).toLocaleDateString()}</li></ul></div>
-            <h6 class="title"><a href="blog-single.html?id=${blog._id}">${blog.title}</a></h6>
+            <h6 class="title"><a href="blog-single.html?slug=${blog.slug}">${blog.title}</a></h6>
           </div>
         </div>
       `;
