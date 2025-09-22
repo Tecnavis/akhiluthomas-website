@@ -67,19 +67,19 @@ button.edit-btn:hover{background:#d68910;}
 <!-- Admin Panel -->
 <div id="adminPanel">
   <h1>Blog Admin Panel</h1>
-  <form id="blogForm">
-    <h2 class="formTitle" id="formTitle">Add New Blog</h2>
-    <input type="text" id="title" placeholder="Blog Title" required>
-    <input type="text" id="author" placeholder="Author Name" required>
-    <input type="date" id="date" required>
-    <input type="text" id="image" placeholder="Image URL" required>
-    <textarea id="summary" placeholder="Short Summary" required></textarea>
-    <textarea id="content" placeholder="Full Content" required></textarea>
-    <div style="display:flex; flex-wrap:wrap;">
-      <button type="submit" id="submitBtn">Add Blog</button>
-      <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
-    </div>
-  </form>
+ <form id="blogForm">
+  <h2 class="formTitle" id="formTitle">Add New Blog</h2>
+  <input type="text" id="title" name="title" placeholder="Blog Title" required>
+  <input type="text" id="author" name="author" placeholder="Author Name" required>
+  <input type="date" id="date" name="date" required>
+  <input type="text" id="image" name="image" placeholder="Image URL" required>
+  <textarea id="summary" name="summary" placeholder="Short Summary" required></textarea>
+  <textarea id="content" name="content" placeholder="Full Content" required></textarea>
+  <div style="display:flex; flex-wrap:wrap;">
+    <button type="submit" id="submitBtn">Add Blog</button>
+    <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+  </div>
+</form>
 
   <h2>All Blogs</h2>
   <div class="table-container">
