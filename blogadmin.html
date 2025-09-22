@@ -73,8 +73,8 @@ button.edit-btn:hover{background:#d68910;}
     <input type="text" id="author" placeholder="Author Name" required>
     <input type="date" id="date" required>
     <input type="text" id="image" placeholder="Image URL" required>
-    <textarea id="summary" placeholder="Short Summary"></textarea>
-    <textarea id="content" placeholder="Full Content"></textarea>
+    <textarea id="summary" placeholder="Short Summary" required></textarea>
+    <textarea id="content" placeholder="Full Content" required></textarea>
     <div style="display:flex; flex-wrap:wrap;">
       <button type="submit" id="submitBtn">Add Blog</button>
       <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
@@ -138,10 +138,9 @@ const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs";
 let blogs=[];
 let editId=null;
 
-// FIX 1: Fetch with large limit
 async function loadBlogs(){
   try{
-    const res=await fetch(`${API_URL}?limit=1000`); // FIX
+    const res=await fetch(`${API_URL}?limit=1000`);
     blogs=await res.json();
     renderAdminTable();
   } catch(err){ console.error("Failed to load blogs:",err); }
@@ -199,12 +198,12 @@ document.getElementById("cancelEditBtn").addEventListener("click",function(){
 document.getElementById("blogForm").addEventListener("submit",async function(e){
   e.preventDefault();
   const blogData={
-    title:document.getElementById("title").value,
-    author:document.getElementById("author").value,
+    title:document.getElementById("title").value.trim(),
+    author:document.getElementById("author").value.trim(),
     date:document.getElementById("date").value,
-    image:document.getElementById("image").value,
-    summary:tinymce.get("summary").getContent(),
-    content:tinymce.get("content").getContent()
+    image:document.getElementById("image").value.trim(),
+    summary:tinymce.get("summary").getContent().trim(),
+    content:tinymce.get("content").getContent().trim()
   };
   try{
     let res;
@@ -217,13 +216,17 @@ document.getElementById("blogForm").addEventListener("submit",async function(e){
       document.getElementById("submitBtn").innerText="Add Blog";
       document.getElementById("cancelEditBtn").style.display='none';
     }
-    const result = await res.json(); // FIX
-    console.log(result);
-    alert(result.message || "Blog saved!"); // FIX
+    const result = await res.json();
+    if (!res.ok) {
+      alert("❌ Failed to save blog: " + (result.error || "Unknown error"));
+      console.error(result.details || result);
+      return;
+    }
+    alert("✅ " + result.message);
     this.reset();
     tinymce.get("summary").setContent("");
     tinymce.get("content").setContent("");
-    loadBlogs(); // refresh table
+    loadBlogs();
   } catch(err){ console.error("Error submitting blog:",err); }
 });
 
@@ -232,8 +235,11 @@ async function deleteBlog(id){
     try{
       const res=await fetch(`${API_URL}/${id}`,{method:"DELETE"});
       const result=await res.json();
-      console.log(result);
-      alert(result.message || "Blog deleted!"); // FIX
+      if (!res.ok) {
+        alert("❌ Failed to delete: " + (result.error || "Unknown error"));
+        return;
+      }
+      alert("✅ " + result.message);
       loadBlogs();
     } catch(err){ console.error("Failed to delete blog:",err); }
   }
