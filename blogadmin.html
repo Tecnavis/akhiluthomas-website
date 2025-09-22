@@ -47,6 +47,12 @@ button.delete-btn:hover{background:#c0392b;}
 button.edit-btn{background:#f39c12;color:#fff;border:none;border-radius:6px;padding:8px 12px;margin-right:5px;}
 button.edit-btn:hover{background:#d68910;}
 
+/* Pagination */
+.pagination { text-align:center; margin-top:20px; }
+.pagination button { margin:0 3px; padding:6px 12px; border:none; border-radius:6px; background:#3498db; color:white; cursor:pointer; }
+.pagination button.active { background:#2c3e50; font-weight:bold; }
+.pagination button:disabled { background:#ccc; cursor:not-allowed; }
+
 /* Animations */
 @keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
 </style>
@@ -73,7 +79,6 @@ button.edit-btn:hover{background:#d68910;}
     <input type="text" id="author" name="author" placeholder="Author Name" required>
     <input type="date" id="date" name="date" required>
     <input type="text" id="image" name="image" placeholder="Image URL" required>
-    <!-- Removed required to avoid TinyMCE issue -->
     <textarea id="summary" name="summary" placeholder="Short Summary"></textarea>
     <textarea id="content" name="content" placeholder="Full Content"></textarea>
     <div style="display:flex; flex-wrap:wrap;">
@@ -97,6 +102,8 @@ button.edit-btn:hover{background:#d68910;}
       <tbody id="blogAdminTable"></tbody>
     </table>
   </div>
+
+  <div class="pagination" id="pagination"></div>
 </div>
 
 <!-- TinyMCE -->
@@ -135,29 +142,41 @@ async function login(){
 
 // -------- Blog Admin Panel --------
 const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs";
-
 let blogs=[];
 let editId=null;
+let currentPage=1;
+const limit=6;
+let totalPages=1;
 
-async function loadBlogs(){
+async function loadBlogs(page=1){
+  currentPage=page;
   try{
-    const res=await fetch(`${API_URL}?limit=1000`);
+    // get blogs for this page
+    const res=await fetch(`${API_URL}?page=${page}&limit=${limit}`);
     blogs=await res.json();
+
+    // get total count
+    const countRes=await fetch(`${API_URL}/count`);
+    const { count }=await countRes.json();
+    totalPages=Math.ceil(count/limit);
+
     renderAdminTable();
+    renderPagination();
   } catch(err){ console.error("Failed to load blogs:",err); }
 }
 
 function renderAdminTable(){
   const table=document.getElementById("blogAdminTable");
   table.innerHTML="";
-  if(blogs.length===0){
+  if(!blogs || blogs.length===0){
     table.innerHTML='<tr><td colspan="5" style="text-align:center;">No blogs found</td></tr>';
+    return;
   }
   blogs.forEach((blog,i)=>{
     const date=new Date(blog.date).toLocaleDateString();
     table.innerHTML+=`
       <tr>
-        <td>${i+1}</td>
+        <td>${(currentPage-1)*limit+i+1}</td>
         <td>${blog.title}</td>
         <td>${blog.author}</td>
         <td>${date}</td>
@@ -168,6 +187,21 @@ function renderAdminTable(){
       </tr>
     `;
   });
+}
+
+function renderPagination(){
+  const pagination=document.getElementById("pagination");
+  pagination.innerHTML="";
+
+  if(totalPages<=1) return;
+
+  pagination.innerHTML+=`<button onclick="loadBlogs(${currentPage-1})" ${currentPage===1?"disabled":""}>Prev</button>`;
+
+  for(let i=1;i<=totalPages;i++){
+    pagination.innerHTML+=`<button onclick="loadBlogs(${i})" class="${i===currentPage?"active":""}">${i}</button>`;
+  }
+
+  pagination.innerHTML+=`<button onclick="loadBlogs(${currentPage+1})" ${currentPage===totalPages?"disabled":""}>Next</button>`;
 }
 
 function editBlog(id){
@@ -199,11 +233,10 @@ document.getElementById("cancelEditBtn").addEventListener("click",function(){
 document.getElementById("blogForm").addEventListener("submit",async function(e){
   e.preventDefault();
 
-  const summary = tinymce.get("summary").getContent().trim();
-  const content = tinymce.get("content").getContent().trim();
+  const summary=tinymce.get("summary").getContent().trim();
+  const content=tinymce.get("content").getContent().trim();
 
-  // Manual validation
-  if (!summary || !content) {
+  if(!summary||!content){
     alert("❌ Summary and Content cannot be empty!");
     return;
   }
@@ -228,17 +261,13 @@ document.getElementById("blogForm").addEventListener("submit",async function(e){
       document.getElementById("submitBtn").innerText="Add Blog";
       document.getElementById("cancelEditBtn").style.display='none';
     }
-    const result = await res.json();
-    if (!res.ok) {
-      alert("❌ Failed to save blog: " + (result.error || "Unknown error"));
-      console.error(result.details || result);
-      return;
-    }
-    alert("✅ " + result.message);
+    const result=await res.json();
+    if(!res.ok){ alert("❌ Failed to save blog: "+(result.error||"Unknown error")); return; }
+    alert("✅ "+result.message);
     this.reset();
     tinymce.get("summary").setContent("");
     tinymce.get("content").setContent("");
-    loadBlogs();
+    loadBlogs(currentPage);
   } catch(err){ console.error("Error submitting blog:",err); }
 });
 
@@ -247,12 +276,9 @@ async function deleteBlog(id){
     try{
       const res=await fetch(`${API_URL}/${id}`,{method:"DELETE"});
       const result=await res.json();
-      if (!res.ok) {
-        alert("❌ Failed to delete: " + (result.error || "Unknown error"));
-        return;
-      }
-      alert("✅ " + result.message);
-      loadBlogs();
+      if(!res.ok){ alert("❌ Failed to delete: "+(result.error||"Unknown error")); return; }
+      alert("✅ "+result.message);
+      loadBlogs(currentPage);
     } catch(err){ console.error("Failed to delete blog:",err); }
   }
 }
