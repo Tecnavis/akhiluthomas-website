@@ -67,20 +67,20 @@ button.edit-btn:hover{background:#d68910;}
 <!-- Admin Panel -->
 <div id="adminPanel">
   <h1>Blog Admin Panel</h1>
- <form id="blogForm">
-  <h2 class="formTitle" id="formTitle">Add New Blog</h2>
-  <input type="text" id="title" name="title" placeholder="Blog Title" required>
-  <input type="text" id="author" name="author" placeholder="Author Name" required>
-  <input type="date" id="date" name="date" required>
-  <input type="text" id="image" name="image" placeholder="Image URL" required>
-  <textarea id="summary" name="summary" placeholder="Short Summary"></textarea>
-<textarea id="content" name="content" placeholder="Full Content"></textarea>
-
-  <div style="display:flex; flex-wrap:wrap;">
-    <button type="submit" id="submitBtn">Add Blog</button>
-    <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
-  </div>
-</form>
+  <form id="blogForm">
+    <h2 class="formTitle" id="formTitle">Add New Blog</h2>
+    <input type="text" id="title" name="title" placeholder="Blog Title" required>
+    <input type="text" id="author" name="author" placeholder="Author Name" required>
+    <input type="date" id="date" name="date" required>
+    <input type="text" id="image" name="image" placeholder="Image URL" required>
+    <!-- Removed required to avoid TinyMCE issue -->
+    <textarea id="summary" name="summary" placeholder="Short Summary"></textarea>
+    <textarea id="content" name="content" placeholder="Full Content"></textarea>
+    <div style="display:flex; flex-wrap:wrap;">
+      <button type="submit" id="submitBtn">Add Blog</button>
+      <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+    </div>
+  </form>
 
   <h2>All Blogs</h2>
   <div class="table-container">
@@ -198,14 +198,25 @@ document.getElementById("cancelEditBtn").addEventListener("click",function(){
 
 document.getElementById("blogForm").addEventListener("submit",async function(e){
   e.preventDefault();
+
+  const summary = tinymce.get("summary").getContent().trim();
+  const content = tinymce.get("content").getContent().trim();
+
+  // Manual validation
+  if (!summary || !content) {
+    alert("❌ Summary and Content cannot be empty!");
+    return;
+  }
+
   const blogData={
     title:document.getElementById("title").value.trim(),
     author:document.getElementById("author").value.trim(),
     date:document.getElementById("date").value,
     image:document.getElementById("image").value.trim(),
-    summary:tinymce.get("summary").getContent().trim(),
-    content:tinymce.get("content").getContent().trim()
+    summary,
+    content
   };
+
   try{
     let res;
     if(editId===null){
