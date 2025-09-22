@@ -98,7 +98,7 @@ button.edit-btn:hover{background:#d68910;}
   </div>
 </div>
 
-<!-- TinyMCE (No API Key Needed - cdnjs) -->
+<!-- TinyMCE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
 tinymce.init({
@@ -138,9 +138,10 @@ const API_URL="https://akhiluthomas-website-backend.onrender.com/api/blogs";
 let blogs=[];
 let editId=null;
 
+// FIX 1: Fetch with large limit
 async function loadBlogs(){
   try{
-    const res=await fetch(API_URL);
+    const res=await fetch(`${API_URL}?limit=1000`); // FIX
     blogs=await res.json();
     renderAdminTable();
   } catch(err){ console.error("Failed to load blogs:",err); }
@@ -216,11 +217,13 @@ document.getElementById("blogForm").addEventListener("submit",async function(e){
       document.getElementById("submitBtn").innerText="Add Blog";
       document.getElementById("cancelEditBtn").style.display='none';
     }
-    console.log(await res.json());
+    const result = await res.json(); // FIX
+    console.log(result);
+    alert(result.message || "Blog saved!"); // FIX
     this.reset();
     tinymce.get("summary").setContent("");
     tinymce.get("content").setContent("");
-    loadBlogs();
+    loadBlogs(); // refresh table
   } catch(err){ console.error("Error submitting blog:",err); }
 });
 
@@ -228,7 +231,9 @@ async function deleteBlog(id){
   if(confirm("Are you sure you want to delete this blog?")){
     try{
       const res=await fetch(`${API_URL}/${id}`,{method:"DELETE"});
-      console.log(await res.json());
+      const result=await res.json();
+      console.log(result);
+      alert(result.message || "Blog deleted!"); // FIX
       loadBlogs();
     } catch(err){ console.error("Failed to delete blog:",err); }
   }
